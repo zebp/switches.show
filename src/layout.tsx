@@ -1,6 +1,6 @@
 export const layout: (string | [string, number])[][] = [
   [
-    "`",
+    "Esc",
     "1",
     "2",
     "3",
@@ -14,6 +14,7 @@ export const layout: (string | [string, number])[][] = [
     "-",
     "=",
     ["Backspace", 2],
+    "Home",
   ],
   [
     ["Tab", 1.5],
@@ -30,6 +31,7 @@ export const layout: (string | [string, number])[][] = [
     "[",
     "]",
     ["\\", 1.5],
+    "PgUp",
   ],
   [
     ["Caps Lock", 1.75],
@@ -45,6 +47,7 @@ export const layout: (string | [string, number])[][] = [
     ";",
     "'",
     ["Enter", 2.25],
+    "PgDn",
   ],
   [
     ["Shift", 2.25],
@@ -58,16 +61,20 @@ export const layout: (string | [string, number])[][] = [
     ",",
     ".",
     "/",
-    ["Shift", 2.75],
+    ["Shift", 1.75],
+    "Up",
+    "End",
   ],
   [
     ["Ctrl", 1.25],
     ["Win", 1.25],
     ["Alt", 1.25],
     ["", 6.25],
-    ["Alt", 1.25],
-    ["Win", 1.25],
-    ["Menu", 1.25],
-    ["Ctrl", 1.25],
+    "Alt",
+    "Menu",
+    "Ctrl",
+    "Left",
+    "Down",
+    "Right",
   ],
 ];
