@@ -53,7 +53,7 @@ export default function Home() {
           ))}
         </div>
       </main>
-      <footer class="flex items-center justify-center">
+      <footer class="flex gap-1 items-center justify-center">
         <LightmodeToggle />
       </footer>
     </div>
