@@ -71,7 +71,7 @@ export const layout: (string | [string, number])[][] = [
     ["Alt", 1.25],
     ["", 6.25],
     "Alt",
-    "Menu",
+    "Fn",
     "Ctrl",
     "Left",
     "Down",

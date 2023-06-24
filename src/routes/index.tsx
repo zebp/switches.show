@@ -15,7 +15,7 @@ function createKey(item: string | [string, number], pressed: Set<string>) {
     label = item;
   }
 
-  const isPressed = pressed.has(label.toLowerCase());
+  const isPressed = pressed.has(label.toLowerCase()) || label === "Fn";
   return <Key label={label} width={width} pressed={isPressed} />;
 }
 
@@ -26,10 +26,6 @@ export default function Home() {
     window.addEventListener(
       "keydown",
       function (event) {
-        if (event.defaultPrevented) {
-          return;
-        }
-
         const key = event.keyCode == 32 ? "space" : event.key.toLowerCase();
         const potentialAliases =
           aliases[key]?.map((alias) => alias.toLowerCase()) ?? [];
