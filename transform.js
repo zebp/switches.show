@@ -99,15 +99,13 @@ for (const row of data) {
     const item = row[i];
 
     if (typeof item === "string") {
-      line.push(item.split("\n").slice(-1)[0]);
+      const label = item.split("\n").slice(-1)[0];
+      line.push({ label, width: 1 });
     } else if (typeof item === "object") {
       const keyMeta = item;
-      const keyLabel = row[i + 1];
-      let width = keyMeta.w || 1;
-
+      const label = row[i + 1];
+      line.push({ label, width: keyMeta.w || 1 });
       i += 1;
-
-      line.push([keyLabel.split("\n").slice(-1)[0], width]);
     }
   }
 

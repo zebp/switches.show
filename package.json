@@ -16,6 +16,7 @@
     "vite": "^4.1.4"
   },
   "dependencies": {
+    "@solid-primitives/map": "^0.4.6",
     "@solidjs/meta": "^0.28.2",
     "@solidjs/router": "^0.8.2",
     "solid-heroicons": "^3.2.4",

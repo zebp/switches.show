@@ -1,53 +1,30 @@
-import { createSignal, onMount } from "solid-js";
+import { createMemo, onMount } from "solid-js";
+import { ReactiveMap } from "@solid-primitives/map";
+
 import { Key } from "~/components/Key";
-import { layout } from "../layout";
 import { LightmodeToggle } from "~/components/LightmodeButton";
+
+import { layout } from "../layout";
 import { aliases } from "~/aliases";
 
-function createKey(
-  item: string | [string, number],
-  pressed: Set<string>,
-  addPressed: (label: string) => void
-) {
-  let label: string;
-  let width = 1;
-
-  if (Array.isArray(item)) {
-    label = item[0];
-    width = item[1];
-  } else {
-    label = item;
-  }
-
-  return (
-    <Key
-      label={label}
-      width={width}
-      pressed={pressed.has(label.toLowerCase())}
-      onClick={() => addPressed(label.toLowerCase())}
-    />
-  );
-}
-
 export default function Home() {
-  const [pressed, setStore] = createSignal<Set<string>>(new Set());
+  const pressed = new ReactiveMap<string, boolean>();
+
   const addPressed = (...keys: string[]) => {
-    setStore(new Set([...pressed(), ...keys]));
+    for (const key of keys) {
+      pressed.set(key, true);
+    }
   };
 
   onMount(() => {
-    window.addEventListener(
-      "keydown",
-      function (event) {
-        const key = event.keyCode == 32 ? "space" : event.key.toLowerCase();
-        const potentialAliases =
-          aliases[key]?.map((alias) => alias.toLowerCase()) ?? [];
+    window.addEventListener("keydown", (event) => {
+      const key = event.key.toLowerCase();
+      const potentialAliases =
+        aliases[key]?.map((alias) => alias.toLowerCase()) ?? [];
 
-        addPressed(key, ...potentialAliases);
-        event.preventDefault();
-      },
-      true
-    );
+      addPressed(key, ...potentialAliases);
+      event.preventDefault();
+    });
   });
 
   return (
@@ -56,7 +33,16 @@ export default function Home() {
         <div class="flex flex-col gap-1">
           {layout.map((row) => (
             <div class="flex">
-              {row.map((label) => createKey(label, pressed(), addPressed))}
+              {row.map(({ label, width }) => (
+                <Key
+                  label={label}
+                  width={width}
+                  pressed={createMemo(
+                    () => pressed.get(label.toLowerCase()) ?? false
+                  )}
+                  onClick={() => addPressed(label.toLowerCase())}
+                />
+              ))}
             </div>
           ))}
         </div>

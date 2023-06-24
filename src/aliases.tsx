@@ -7,6 +7,7 @@ export const aliases: Record<string, string[]> = {
   "⌥": ["Alt"],
   capslock: ["Caps", "Caps Lock"],
   space: ["", " "],
+  " ": ["Space", "Spacebar", ""],
   os: ["windows", "super", "win"],
   arrowleft: ["left"],
   arrowright: ["right"],
