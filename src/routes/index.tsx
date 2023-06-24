@@ -4,7 +4,11 @@ import { layout } from "../layout";
 import { LightmodeToggle } from "~/components/LightmodeButton";
 import { aliases } from "~/aliases";
 
-function createKey(item: string | [string, number], pressed: Set<string>) {
+function createKey(
+  item: string | [string, number],
+  pressed: Set<string>,
+  addPressed: (label: string) => void
+) {
   let label: string;
   let width = 1;
 
@@ -15,12 +19,21 @@ function createKey(item: string | [string, number], pressed: Set<string>) {
     label = item;
   }
 
-  const isPressed = pressed.has(label.toLowerCase()) || label === "Fn";
-  return <Key label={label} width={width} pressed={isPressed} />;
+  return (
+    <Key
+      label={label}
+      width={width}
+      pressed={pressed.has(label.toLowerCase())}
+      onClick={() => addPressed(label.toLowerCase())}
+    />
+  );
 }
 
 export default function Home() {
   const [pressed, setStore] = createSignal<Set<string>>(new Set());
+  const addPressed = (...keys: string[]) => {
+    setStore(new Set([...pressed(), ...keys]));
+  };
 
   onMount(() => {
     window.addEventListener(
@@ -30,8 +43,7 @@ export default function Home() {
         const potentialAliases =
           aliases[key]?.map((alias) => alias.toLowerCase()) ?? [];
 
-        setStore(new Set([...pressed(), key, ...potentialAliases]));
-
+        addPressed(key, ...potentialAliases);
         event.preventDefault();
       },
       true
@@ -44,7 +56,7 @@ export default function Home() {
         <div class="flex flex-col gap-1">
           {layout.map((row) => (
             <div class="flex">
-              {row.map((label) => createKey(label, pressed()))}
+              {row.map((label) => createKey(label, pressed(), addPressed))}
             </div>
           ))}
         </div>
