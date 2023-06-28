@@ -30,7 +30,7 @@ export const layout: { label: string; width: number }[][] = [
     { label: "P", width: 1 },
     { label: "[", width: 1 },
     { label: "]", width: 1 },
-    { label: "\", width: 1.5 },
+    { label: "\\", width: 1.5 },
     { label: "PgUp", width: 1 },
   ],
   [
