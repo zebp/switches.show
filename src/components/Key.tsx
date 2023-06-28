@@ -9,6 +9,10 @@ export interface KeyProps {
 }
 
 export function Key({ label, width, onClick, pressed }: KeyProps) {
+  if (label === "Win" && navigator.platform === "MacIntel") {
+    label = "⌘";
+  }
+
   return (
     <div class="px-0.5" style={{ width: `calc(3.5rem * ${width})` }}>
       <Button

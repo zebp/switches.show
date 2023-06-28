@@ -1,5 +1,5 @@
 export const aliases: Record<string, string[]> = {
-  meta: ["Command", "Control", "Ctrl"],
+  meta: ["Win", "Super", "Windows", "Command", "Cmd", "⌘"],
   control: ["Ctrl"],
   cmd: ["Command"],
   windows: ["Win"],
